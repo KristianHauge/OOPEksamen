@@ -99,9 +99,8 @@ namespace OOPEksamensOpgave
             }
         }
 
-        
-
-        public string DriversLicenseType
+        //SKRIV KOMMENTAR
+        public virtual string DriversLicenseType
         {
             get { return _driversLicenseType; }
             set { 
@@ -113,12 +112,12 @@ namespace OOPEksamensOpgave
                     }
                     else
                     {
-                        throw new ArgumentException("Drivers license does not match the criteria");
+                        throw new ArgumentException("Driver's license does not match the criteria");
                     }
                 }
                 else
                 {
-                    throw new ArgumentNullException("Drivers license type cannot be null");
+                    throw new ArgumentNullException("Driver's license type cannot be null");
                 }
             }
         }

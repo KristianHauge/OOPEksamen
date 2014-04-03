@@ -4,3 +4,6 @@ c:\users\virus\documents\visual studio 2013\Projects\OOPEksamensOpgave\OOPEksame
 c:\users\virus\documents\visual studio 2013\Projects\OOPEksamensOpgave\OOPEksamensOpgave\obj\Debug\OOPEksamensOpgave.csprojResolveAssemblyReference.cache
 c:\users\virus\documents\visual studio 2013\Projects\OOPEksamensOpgave\OOPEksamensOpgave\obj\Debug\OOPEksamensOpgave.exe
 c:\users\virus\documents\visual studio 2013\Projects\OOPEksamensOpgave\OOPEksamensOpgave\obj\Debug\OOPEksamensOpgave.pdb
+C:\Users\ViRuS\Documents\GitHub\OOPEksamen\OOPEksamensOpgave\bin\Debug\OOPEksamensOpgave.exe.config
+C:\Users\ViRuS\Documents\GitHub\OOPEksamen\OOPEksamensOpgave\obj\Debug\OOPEksamensOpgave.exe
+C:\Users\ViRuS\Documents\GitHub\OOPEksamen\OOPEksamensOpgave\obj\Debug\OOPEksamensOpgave.pdb

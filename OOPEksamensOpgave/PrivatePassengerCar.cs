@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace OOPEksamensOpgave
 {
-    class PrivatePassengerCar : PassengerCar
+    public class PrivatePassengerCar : PassengerCar
     {
+        public bool IsoFixMounted { get; set; }
+
         public override string ToString()
         {
             return base.ToString();
