@@ -10,10 +10,29 @@ namespace OOPEksamensOpgave
     {
         private int _loadCapacity;
 
-        // Temp constructor
-        public BusinessPassengerCar(int load)
+        //Constructor which calls base with some default values
+        public BusinessPassengerCar(string name, DateTime year)
+            : base(name, year)
         {
-            LoadCapacity = load;
+            LoadCapacity = 0;
+        }
+
+        // Constructor which calls base with less default values
+        public BusinessPassengerCar(string name, DateTime year, bool towHitch)
+            : base(name, year, towHitch)
+        {
+            LoadCapacity = 0;
+        }
+
+        // Constructor which calls base with specified values except for bathroom
+        public BusinessPassengerCar(string name, DateTime year, bool towHitch, double km, string licenseNumber, double retailPrice, string driversLicenseType,
+                                   double engineSize, string fuel, double kilometersPerLiter, int numSeats, double trunkLength, double trunkWidth, 
+                                   double trunkHeight, bool saftyBar, int loadCapacity)
+            : base(name, year, towHitch, km, licenseNumber, retailPrice, driversLicenseType, engineSize, fuel, kilometersPerLiter, numSeats,
+                   trunkLength, trunkWidth, trunkHeight)
+        {
+            SafetyBar = saftyBar;
+            LoadCapacity = loadCapacity;
         }
       
         // Does the car have a safety bar

@@ -11,19 +11,41 @@ namespace OOPEksamensOpgave
 
         // Constructor for truck, sets driver's license to C
         // This ensures that we call property DriversLicenseType
-        public Bus()
+        public Bus(string name, DateTime year)
+            : base(name, year, false, 0.0, "XX12345", 0.0, "D", 0.0, "Diesel", 0.0, 4, false)
         {
-            this.DriversLicenseType = "D";
+            this.Length = 0.0;
+            this.Height = 0.0;
+            this.Weight = 0;
+            this.NumSleepingPlaces = 0;
         }
 
-        //Number of seats in the bus
-        public int NumSeats { get; set; }
+        // Constructor which calls base with less default values
+        public Bus(string name, DateTime year, bool towHitch)
+            : base(name, year, towHitch, 0.0, "XX12345", 0.0, "D", 0.0, "Diesel", 0.0, 4, false)
+        {
+            this.DriversLicenseType = "D";
+            this.Length = 0.0;
+            this.Height = 0.0;
+            this.Weight = 0;
+            this.NumSleepingPlaces = 0;
+        }
+
+        // Constructor which calls base with specified values except for bathroom
+        public Bus(string name, DateTime year, bool towHitch, double km, string licenseNumber, double retailPrice, string driversLicenseType,
+                     double engineSize, string fuel, double kilometersPerLiter, int numSeats, double length, int weight, double height, 
+                     int numSleepingPlaces, bool hasBathroom)
+            : base(name, year, towHitch, km, licenseNumber, retailPrice, "D", engineSize, fuel, kilometersPerLiter, numSeats, hasBathroom)
+        {
+            this.DriversLicenseType = driversLicenseType;
+            this.Length = length;
+            this.Height = height;
+            this.Weight = weight;
+            this.NumSleepingPlaces = numSleepingPlaces;
+        }
 
         //Number of sleeping places in the bus
         public int NumSleepingPlaces { get; set; }
-
-        //Decides whether the bus has a bathroom or not
-        public bool HasBathroom { get; set; }
 
         //The height of the bus
         public double Height { get; set; }

@@ -9,6 +9,7 @@ namespace OOPEksamensOpgave
     public abstract class Vehicle
     {
 
+        private int _numSeats;
         private string _name;
         private double _km;
         private string _licenseNumber;
@@ -20,6 +21,48 @@ namespace OOPEksamensOpgave
         private string _fuel;
         private string _energyClass;
 
+        protected Vehicle(string name, DateTime year, bool towHitch, double km, string licenseNumber, double retailPrice, string driversLicenseType,
+                          double engineSize, string fuel, double kilometersPerLiter, int numSeats, bool hasBathroom)
+        {
+            this.Name = name;
+            this.Km = km;
+            this.LicenseNumber = licenseNumber;
+            this.Year = year;
+            this.RetailPrice = retailPrice;
+            this.TowHitch = towHitch;
+            this.DriversLicenseType = driversLicenseType;
+            this.EngineSize = engineSize;
+            this.Fuel = fuel;
+            this.KilometersPerLiter = kilometersPerLiter;
+            this.NumSeats = numSeats;
+            this.HasBathroom = hasBathroom;
+        }
+
+        //Number of seats in the vehicle
+        public int NumSeats
+        {
+            get { return _numSeats; }
+            set
+            {
+                if (this is BusinessPassengerCar)
+                {
+                    _numSeats = 2;
+                }
+
+                else if (this is PrivatePassengerCar && (2 <= value && value <= 7))
+                {
+                    _numSeats = value;
+                }
+
+                else
+                {
+                    _numSeats = value;
+                }
+            }
+        }
+
+        //Decides whether the vehicle has a bathroom or not
+        public bool HasBathroom { get; set; }
 
         // Name of the vehicle
         public string Name
@@ -254,11 +297,11 @@ namespace OOPEksamensOpgave
             {
                 if (this.Fuel == "Diesel")
                 {
-                    CalculateEnergyClass(23, 18, 13);
+                    _energyClass = CalculateEnergyClass(23, 18, 13, this.KilometersPerLiter);
                 }
                 else
                 {
-                    CalculateEnergyClass(18, 14, 10);
+                    _energyClass = CalculateEnergyClass(18, 14, 10, this.KilometersPerLiter);
                 }
             }
 
@@ -266,11 +309,11 @@ namespace OOPEksamensOpgave
             {
                 if (this.Fuel == "Diesel")
                 {
-                    CalculateEnergyClass(25, 20, 15);
+                    _energyClass = CalculateEnergyClass(25, 20, 15, this.KilometersPerLiter);
                 }
                 else
                 {
-                    CalculateEnergyClass(20, 16, 12);
+                    _energyClass = CalculateEnergyClass(20, 16, 12, this.KilometersPerLiter);
                 }
             }
 
@@ -284,19 +327,19 @@ namespace OOPEksamensOpgave
         /// <param name="b">Kilometers per liter for the B and C class</param>
         /// <param name="c">Kilometers per liter for the C and D class</param>
         /// <returns></returns>
-        private string CalculateEnergyClass(int a, int b, int c)
-        {
-            if (this.KilometersPerLiter >= a)
+        protected virtual string CalculateEnergyClass(int a, int b, int c, double kml)
+        {            
+            if (kml >= a)
             {
                 return "A klasse";
             }
 
-            else if (this.KilometersPerLiter >= b && this.KilometersPerLiter < a)
+            else if (kml >= b && kml < a)
             {
                 return "B klasse";
             }
 
-            else if (this.KilometersPerLiter >= c && this.KilometersPerLiter < b)
+            else if (kml >= c && kml < b)
             {
                 return "C klasse";
             }

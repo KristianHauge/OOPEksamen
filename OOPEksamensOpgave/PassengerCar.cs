@@ -6,41 +6,42 @@ using System.Threading.Tasks;
 
 namespace OOPEksamensOpgave
 {
-    class PassengerCar : Vehicle
+    public class PassengerCar : Vehicle
     {
-        private int _numSeats;
-        public struct TrunkDimensions
+        // Private readonly fields for declaring trunk dimensions
+        private readonly double _trunkLength;
+        private readonly double _trunkHeight;
+        private readonly double _trunkWidth;
+
+        //Constructor which calls base with some default values
+        public PassengerCar(string name, DateTime year)
+            : base(name, year, false, 0.0, "XX12345", 0.0, "B", 0.0, "Benzin", 0.0, 4, false)
         {
-            public double Length;
-            public double Width;
-            public double Height;
+            _trunkLength = 0.0;
+            _trunkWidth = 0.0;
+            _trunkHeight = 0.0;
         }
 
-        public TrunkDimensions Trunk;
-
-        public PassengerCar()
+        // Constructor which calls base with less default values
+        public PassengerCar(string name, DateTime year, bool towHitch)
+            : base(name, year, towHitch, 0.0, "XX12345", 0.0, "B", 0.0, "Benzin", 0.0, 4, false)
         {
-            base.DriversLicenseType = "B";
+            _trunkLength = 0.0;
+            _trunkWidth = 0.0;
+            _trunkHeight = 0.0;
         }
 
-        public int NumSeats
+        // Constructor which calls base with specified values except for bathroom
+        public PassengerCar(string name, DateTime year, bool towHitch, double km, string licenseNumber, double retailPrice, string driversLicenseType,
+                          double engineSize, string fuel, double kilometersPerLiter, int numSeats, double trunkLength, double trunkWidth, double trunkHeight)
+            : base(name, year, towHitch, km, licenseNumber, retailPrice, "B", engineSize, fuel, kilometersPerLiter, numSeats, false)
         {
-            get { return _numSeats; }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("Number of seats in passenger cars can't be null");
-
-                if (this is BusinessPassengerCar)
-                    _numSeats = 2;
-                else if (this is PrivatePassengerCar && (2 <= value && value <= 7))
-                    _numSeats = value;
-                else
-                    throw new ArgumentOutOfRangeException("Number of seats in the passenger car is out of range");
-            }
+            this.DriversLicenseType = driversLicenseType;
+            _trunkLength = trunkLength;
+            _trunkWidth = trunkWidth;
+            _trunkHeight = trunkHeight;
         }
-
-
+        
         public override string DriversLicenseType
         {
             get { return base.DriversLicenseType; }

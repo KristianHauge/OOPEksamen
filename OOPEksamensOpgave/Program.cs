@@ -10,12 +10,12 @@ namespace OOPEksamensOpgave
     {
         static void Main(string[] args)
         {
-            PrivatePassengerCar john = new PrivatePassengerCar();
-            john.Fuel = "Diesel";
+            PassengerCar per = new PassengerCar("mazda", DateTime.Now, true, 0.0, "xx12345", 1000, "CE", 1.0, "Benzin", 12.4, 3, 3, 3, 3);
+            per.DriversLicenseType = "C";
 
-            Bus per = new Bus();
-            per.Fuel = "Diesel";
+            Vehicle vagn = per;
 
+            Console.WriteLine(vagn is PassengerCar);
             Console.ReadLine();
         }
     }
