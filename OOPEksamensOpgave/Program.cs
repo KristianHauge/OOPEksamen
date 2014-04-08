@@ -10,12 +10,14 @@ namespace OOPEksamensOpgave
     {
         static void Main(string[] args)
         {
-            PassengerCar per = new PassengerCar("mazda", DateTime.Now, true, 0.0, "xx12345", 1000, "CE", 1.0, "Benzin", 12.4, 3, 3, 3, 3);
-            per.DriversLicenseType = "C";
+            DateTime birt = new DateTime(1990, 01, 02);
 
-            Vehicle vagn = per;
+            PrivatePerson Kristian = new PrivatePerson(birt, "Kristian");
+            PrivatePerson Malthe = new PrivatePerson(birt, "Kristian");
+            PrivatePerson Martin = new PrivatePerson(birt, "Kristian");
+            PrivatePerson Emil = new PrivatePerson(birt, "Kristian");
 
-            Console.WriteLine(vagn is PassengerCar);
+            Console.WriteLine(Kristian.CPR + " " + Malthe.CPR + " " + Martin.CPR + " " + Emil.CPR);
             Console.ReadLine();
         }
     }
