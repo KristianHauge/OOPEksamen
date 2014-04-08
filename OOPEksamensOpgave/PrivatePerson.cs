@@ -15,7 +15,7 @@ namespace OOPEksamensOpgave
         public PrivatePerson(DateTime birthday, string name)
         {
             _CPR = birthday.ToString("ddMMyy") + id.ToString("D4");
-            if (id > 1)
+            if (id == 9999)
             {
                 id = 0;
             }
@@ -34,5 +34,13 @@ namespace OOPEksamensOpgave
             }
         }
 
+        public int Balance { get; private set; }
+
+        public string ZipCode { get; set; }
+
+        public void UpdateBalance(Object obj,  arg)
+        {
+            Balance = Balance + arg.
+        }
     }
 }
