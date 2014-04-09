@@ -28,7 +28,7 @@ namespace OOPEksamensOpgave
 
         public bool BidAuction(decimal bid, Buyer buyer)
         {
-            if (buyer.Balance >= bid && bid > CurrentBid)
+            if (buyer.Balance >= bid && bid > CurrentBid && bid >= MinPrice)
             {
                 CurrentBid = bid;
                 if (HighestBidder == null)
@@ -39,6 +39,7 @@ namespace OOPEksamensOpgave
                 {
                     HighestBidder.RemoveFromEvent(this);
                 }
+
                 buyer.SubscribeToEvent(this);
                 HighestBidder = buyer;
 

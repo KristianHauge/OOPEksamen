@@ -36,7 +36,10 @@ namespace OOPEksamensOpgave
                 Console.WriteLine(john.Vehicle.Name);
             }
 
+            if (receiveYes == true)
+            {
                 Console.WriteLine(ah.AcceptOffer(sell, aucN)); 
+            }
 	        
 
             foreach (Auction john in ah.AuctionList)
