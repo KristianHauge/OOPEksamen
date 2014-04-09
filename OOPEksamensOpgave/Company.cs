@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace OOPEksamensOpgave
 {
-    class Company
+    public class Company
     {
         private static int Id = 0;
 
         private readonly string _CVR;
 
-        public Company()
+        public Company(decimal balance, decimal credit)
         {
             _CVR = Id.ToString("D8");
 
@@ -24,6 +24,19 @@ namespace OOPEksamensOpgave
             {
                 Id++;
             }
+
+            Balance = balance;
+            Credit = credit;
+        }
+
+        public void SubscribeToEvent2(Auction auction)
+        {
+            auction.UpdateBalanceEvent += UpdateBalance;
+        }
+
+        public void RemoveFromEvent2(Auction auction)
+        {
+            auction.UpdateBalanceEvent -= UpdateBalance;
         }
 
         public string CVR 
@@ -34,15 +47,30 @@ namespace OOPEksamensOpgave
             }
         }
 
-        public int Balance { get; private set; }
+        public decimal Balance { get; private set; }
 
-        public int Credit { get; private set; }
+        public decimal Credit { get; private set; }
 
         public string ZipCode { get; set; }
 
-        public void UpdateBalance(Object obj,  arg)
+        private void UpdateBalance(Object obj, Auction.PriceArgs e)
         {
-            //_balance = _balance + arg.
+            decimal tempBalance = e.Price;
+
+            if (e.Salesman.Company != null && this == e.Salesman.Company)
+            {
+                    Balance += AuctionHouse.AuctionFee(e.Price);
+            }
+
+            else if (e.Buyer.Company != null && this == e.Buyer.Company)
+            {
+                if (tempBalance > Balance)
+                {
+                    tempBalance -= Balance;
+                    Balance = 0.0M;
+                    Credit -= tempBalance;
+                }
+            }
         }
 
     }

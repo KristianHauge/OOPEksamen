@@ -8,6 +8,7 @@ namespace OOPEksamensOpgave
 {
     public class Auction
     {
+        public event AcceptOfferDelegate UpdateBalanceEvent;
         public Vehicle Vehicle { get; private set; }
         public Seller Salesman { get; private set; }
         public Buyer HighestBidder { get; private set; }
@@ -30,15 +31,49 @@ namespace OOPEksamensOpgave
             if (buyer.Balance >= bid && bid > CurrentBid)
             {
                 CurrentBid = bid;
+                if (HighestBidder == null)
+                {
+                }
+
+                else
+                {
+                    HighestBidder.RemoveFromEvent(this);
+                }
+                buyer.SubscribeToEvent(this);
                 HighestBidder = buyer;
+
                 if(CurrentBid > MinPrice)
                 {
                     Notify();
                 }
                 return true;
             }
-            return false;
+
+            else
+            {
+                return false;
+            }
         }
 
+        public void sell()
+        {
+            UpdateBalanceEvent(this, new PriceArgs(CurrentBid, Salesman, HighestBidder));
+        }
+
+        public class PriceArgs : EventArgs
+        {
+            public decimal Price { get; private set; }
+
+            public Seller Salesman { get; private set; }
+
+            public Buyer Buyer { get; private set; }
+
+            public PriceArgs(decimal currentBid, Seller salesman, Buyer buyer)
+            {
+                Price = currentBid;
+                Salesman = salesman;
+                Buyer = buyer;
+            }
+        }
     }
 }

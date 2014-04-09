@@ -8,22 +8,49 @@ namespace OOPEksamensOpgave
 {
     public class Buyer
     {
-        private PrivatePerson _person;
-        private Company _company;
+        public PrivatePerson Person { get; private set; }
+        public Company Company { get; private set; }
 
         public Buyer(PrivatePerson person)
         {
             if(person != null)
             {
-                _person = person;
+                Person = person;
             }
+
         }
 
         public Buyer(Company company)
         {
             if (company != null)
             {
-                _company = company;
+                Company = company;
+            }
+        }
+
+        public void SubscribeToEvent(Auction auction)
+        {
+            if (Person != null)
+            {
+                Person.SubscribeToEvent2(auction);
+            }
+
+            else
+            {
+                Company.SubscribeToEvent2(auction);
+            }
+        }
+
+        public void RemoveFromEvent(Auction auction)
+        {
+            if (Person != null)
+            {
+                Person.RemoveFromEvent2(auction);
+            }
+
+            else
+            {
+                Company.RemoveFromEvent2(auction);
             }
         }
 
@@ -33,13 +60,13 @@ namespace OOPEksamensOpgave
         {
             get 
             {
-                if (this._company != null)
+                if (this.Company != null)
                 {
-                    return _company.Balance + _company.Credit;
+                    return Company.Balance + Company.Credit;
                 }
                 else
                 {
-                    return _person.Balance;
+                    return Person.Balance;
                 }
             }
             private set { _balance = value; }
