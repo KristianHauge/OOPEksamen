@@ -8,39 +8,41 @@ namespace OOPEksamensOpgave
 {
     class Truck : Vehicle
     {
+        //The first constructor which only takes the name as input
+        public Truck(string name)
+            : base(name)
+        {
+            InitializeDefault();
+        }
+
         // Constructor for truck, sets driver's license to C
         // This ensures that we call property DriversLicenseType
         //Constructor which calls base with some default values
         public Truck(string name, DateTime year)
-            : base(name, year, false, 0.0, "XX12345", 0.0, "C", 0.0, "Diesel", 0.0, 4, false)
+            : base(name, year)
         {
-            this.Length = 0.0;
-            this.Height = 0.0;
-            this.Weight = 0;
-            this.LoadCapacity = 0;
+            InitializeDefault();
         }
 
-        // Constructor which calls base with less default values
+        //The third constructor which takes the name, the date of creation and whether the auto camper has a towhitch as input
         public Truck(string name, DateTime year, bool towHitch)
-            : base(name, year, towHitch, 0.0, "XX12345", 0.0, "C", 0.0, "Diesel", 0.0, 4, false)
+            : base(name, year, towHitch)
+        {
+            InitializeDefault();
+        }
+
+        //The method used to generate random default values
+        private void InitializeDefault()
         {
             this.DriversLicenseType = "C";
-            this.Length = 0.0;
-            this.Height = 0.0;
-            this.Weight = 0;
-            this.LoadCapacity = 0;
-        }
-
-        // Constructor which calls base with specified values except for bathroom
-        public Truck(string name, DateTime year, bool towHitch, double km, string licenseNumber, double retailPrice, string driversLicenseType,
-                     double engineSize, string fuel, double kilometersPerLiter, int numSeats, double length, int weight, double height, int loadCapacity)
-            : base(name, year, towHitch, km, licenseNumber, retailPrice, "C", engineSize, fuel, kilometersPerLiter, numSeats, false)
-        {
-            this.DriversLicenseType = driversLicenseType;
-            this.Length = length;
-            this.Height = height;
-            this.Weight = weight;
-            this.LoadCapacity = loadCapacity;
+            base.EngineSize = RandomGenerator.r.Next(5, 16);
+            base.Fuel = RandomGenerator.r.Next(0, 2) == 0 ? "Diesel" : "Benzin";
+            base.HasBathroom = RandomGenerator.r.Next(0, 2) == 0 ? true : false;
+            base.NumSeats = RandomGenerator.r.Next(1, 3);
+            this.Weight = RandomGenerator.r.Next(1, 65);
+            this.Length = RandomGenerator.r.Next(5, 15);
+            this.Height = RandomGenerator.r.Next(2, 5);
+            this.LoadCapacity = RandomGenerator.r.Next(10, 45);
         }
 
         // The load capacity of the truck
@@ -70,7 +72,11 @@ namespace OOPEksamensOpgave
                 }
             }
         }
-        
 
+        public override string ToString()
+        {
+            return string.Format(base.ToString() + " It has {0} number of seats and a weight of {1} ton.",
+                NumSeats, Weight);
+        }
     }
 }

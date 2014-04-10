@@ -10,30 +10,38 @@ namespace OOPEksamensOpgave
     {
         private int _loadCapacity;
 
+        //The first constructor which only takes the name as input
+        public BusinessPassengerCar(string name)
+            : base(name)
+        {
+            InitializeDefault();
+        }
+
         //Constructor which calls base with some default values
         public BusinessPassengerCar(string name, DateTime year)
             : base(name, year)
         {
-            LoadCapacity = 0;
+            InitializeDefault();
         }
 
         // Constructor which calls base with less default values
         public BusinessPassengerCar(string name, DateTime year, bool towHitch)
             : base(name, year, towHitch)
         {
-            LoadCapacity = 0;
+            InitializeDefault();
         }
 
-        // Constructor which calls base with specified values except for bathroom
-        public BusinessPassengerCar(string name, DateTime year, bool towHitch, double km, string licenseNumber, double retailPrice, string driversLicenseType,
-                                   double engineSize, string fuel, double kilometersPerLiter, int numSeats, double trunkLength, double trunkWidth, 
-                                   double trunkHeight, bool saftyBar, int loadCapacity)
-            : base(name, year, towHitch, km, licenseNumber, retailPrice, driversLicenseType, engineSize, fuel, kilometersPerLiter, numSeats,
-                   trunkLength, trunkWidth, trunkHeight)
+        //The method used to generate random default values
+        private void InitializeDefault()
         {
-            SafetyBar = saftyBar;
-            LoadCapacity = loadCapacity;
+            base.DriversLicenseType = "B";
+            base.EngineSize = RandomGenerator.r.Next(1, 11);
+            base.Fuel = RandomGenerator.r.Next(0, 2) == 0 ? "Diesel" : "Benzin";
+            base.NumSeats = 2;
+            this.LoadCapacity = RandomGenerator.r.Next(1, 1000);
+            this.SafetyBar = RandomGenerator.r.Next(0, 2) == 0 ? false : true;
         }
+
       
         // Does the car have a safety bar
         public bool SafetyBar { get; set; }
@@ -50,6 +58,10 @@ namespace OOPEksamensOpgave
                 _loadCapacity = value;
             }
         }
-        
+
+        public override string ToString()
+        {
+            return string.Format(base.ToString() + "This is a business car with {0} kg load capacity", LoadCapacity);
+        }
     }
 }

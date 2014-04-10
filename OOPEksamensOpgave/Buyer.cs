@@ -11,54 +11,34 @@ namespace OOPEksamensOpgave
         public PrivatePerson Person { get; private set; }
         public Company Company { get; private set; }
 
+        //Intializes a buyer of the PrivatePerson class
         public Buyer(PrivatePerson person)
         {
-            if(person != null)
+            if (person != null)
             {
                 Person = person;
             }
 
+            TempBalanceIfAcceptedBid = person.Balance;
         }
 
+        //Intializes a buyer of the Company class
         public Buyer(Company company)
         {
             if (company != null)
             {
                 Company = company;
             }
-        }
 
-        public void SubscribeToEvent(Auction auction)
-        {
-            if (Person != null)
-            {
-                Person.SubscribeToEvent2(auction);
-            }
-
-            else
-            {
-                Company.SubscribeToEvent2(auction);
-            }
-        }
-
-        public void RemoveFromEvent(Auction auction)
-        {
-            if (Person != null)
-            {
-                Person.RemoveFromEvent2(auction);
-            }
-
-            else
-            {
-                Company.RemoveFromEvent2(auction);
-            }
+            TempBalanceIfAcceptedBid = company.Balance + company.Credit;
         }
 
         private decimal _balance;
 
+        //Calculates the buyer's balance based on the buyer's class (PrivatePerson or Company)
         public decimal Balance
         {
-            get 
+            get
             {
                 if (this.Company != null)
                 {
@@ -72,5 +52,19 @@ namespace OOPEksamensOpgave
             private set { _balance = value; }
         }
         
+        private decimal _tempBalanceIfAcceptedBid;
+
+        public decimal TempBalanceIfAcceptedBid
+        {
+            get
+            {
+                return _tempBalanceIfAcceptedBid;
+            }
+            set
+            {
+                _tempBalanceIfAcceptedBid = value;
+            }
+        }
+
     }
 }

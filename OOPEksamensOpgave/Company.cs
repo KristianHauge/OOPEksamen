@@ -12,6 +12,7 @@ namespace OOPEksamensOpgave
 
         private readonly string _CVR;
 
+        //Constructor that takes balance, credit and adds a unique CVR string to the company
         public Company(decimal balance, decimal credit)
         {
             _CVR = Id.ToString("D8");
@@ -29,12 +30,14 @@ namespace OOPEksamensOpgave
             Credit = credit;
         }
 
-        public void SubscribeToEvent2(Auction auction)
+        //Subscribes the company to the event that updates the balance
+        public void SubscribeToEvent(Auction auction)
         {
             auction.UpdateBalanceEvent += UpdateBalance;
         }
 
-        public void RemoveFromEvent2(Auction auction)
+        //Removes the company from the event that updates the balance
+        public void RemoveFromEvent(Auction auction)
         {
             auction.UpdateBalanceEvent -= UpdateBalance;
         }
@@ -51,8 +54,9 @@ namespace OOPEksamensOpgave
 
         public decimal Credit { get; private set; }
 
-        public string ZipCode { get; set; }
+        public int ZipCode { get; set; }
 
+        //Updates the balance of the company
         private void UpdateBalance(Object obj, Auction.PriceArgs e)
         {
             decimal tempBalance = e.Price;

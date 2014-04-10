@@ -9,37 +9,44 @@ namespace OOPEksamensOpgave
     class AutoCamper : Vehicle
     {
         private string _heatingSystem;
+        
+        //The first constructor which only takes the name as input
+        public AutoCamper(string name)
+            : base(name)
+        {
+            InitializeDefault();
+        }
 
+        //The second constructor which only takes the name and date of creation as input
         public AutoCamper(string name, DateTime year)
-            : base(name, year, false, 0.0, "XX12345", 0.0, "B", 0.0, "Diesel", 0.0, 4, false)
+            : base(name, year) 
         {
-            this.HeatingSystem = "Gas";
-            this.NumSleepingPlaces = 0;
+            InitializeDefault();
         }
 
-        // Constructor which calls base with less default values
+        //The third constructor which takes the name, the date of creation and whether the auto camper has a towhitch as input
         public AutoCamper(string name, DateTime year, bool towHitch)
-            : base(name, year, towHitch, 0.0, "XX12345", 0.0, "B", 0.0, "Diesel", 0.0, 4, false)
+            : base(name, year, towHitch)
         {
-            this.DriversLicenseType = "D";
-            this.HeatingSystem = "Gas";
-            this.NumSleepingPlaces = 0;
+            InitializeDefault();
         }
 
-        // Constructor which calls base with specified values except for bathroom
-        public AutoCamper(string name, DateTime year, bool towHitch, double km, string licenseNumber, double retailPrice, string driversLicenseType,
-                          double engineSize, string fuel, double kilometersPerLiter, int numSeats, string heatingSystem, int numSleepingPlaces,
-                          bool hasBathroom)
-            : base(name, year, towHitch, km, licenseNumber, retailPrice, "B", engineSize, fuel, kilometersPerLiter, numSeats, hasBathroom)
+        //The method used to generate random default values
+        private void InitializeDefault()
         {
-            this.HeatingSystem = heatingSystem;
-            this.DriversLicenseType = "B";
-            this.NumSleepingPlaces = numSleepingPlaces;
+            base.DriversLicenseType = "B";
+            base.EngineSize = RandomGenerator.r.Next(3, 7);
+            base.Fuel = RandomGenerator.r.Next(0, 2) == 0 ? "Diesel" : "Benzin";
+            base.HasBathroom = RandomGenerator.r.Next(0, 2) == 0 ? true : false;
+            base.NumSeats = RandomGenerator.r.Next(2, 8);
+            this.HeatingSystem = RandomGenerator.r.Next(0, 2) == 0 ? "Gas" : RandomGenerator.r.Next(0, 2) == 0 ? "Electric" : "Oil";
+            this.NumSleepingPlaces = RandomGenerator.r.Next(1, 10);
         }
 
         public int NumSleepingPlaces { get; set; }
 
-        public string HeatingSystem
+        //The property that assigns a value to the _heatingSystem variable
+        public string HeatingSystem 
         {
             get { return _heatingSystem; }
             set
@@ -70,6 +77,8 @@ namespace OOPEksamensOpgave
             }
         }
 
+        //Method which overrides the CalculateEnergyClass in vehicles
+        //The method calculates which energy class the autocamper is placed in based on heating systems
         protected override string CalculateEnergyClass(int a, int b, int c, double kml)
         {
             double tmpkml;
@@ -86,6 +95,12 @@ namespace OOPEksamensOpgave
                 tmpkml = this.KilometersPerLiter * 0.9;
             }
             return base.CalculateEnergyClass(a, b, c, tmpkml);
+        }
+
+        public override string ToString()
+        {
+            return string.Format(base.ToString() + " It has {0} number of seats, {1} places to sleep", 
+                NumSeats, NumSleepingPlaces);
         }
     }
 }

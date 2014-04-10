@@ -45,6 +45,7 @@
     <Compile Include="AuctionHouse.cs" />
     <Compile Include="Buyer.cs" />
     <Compile Include="Company.cs" />
+    <Compile Include="RandomGenerator.cs" />
     <Compile Include="Seller.cs" />
     <Compile Include="Vehicles\AutoCamper.cs" />
     <Compile Include="Vehicles\Bus.cs" />

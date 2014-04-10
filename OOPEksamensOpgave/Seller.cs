@@ -8,9 +8,11 @@ namespace OOPEksamensOpgave
 {
     public class Seller
     {
+        private int _zipCode;
         public PrivatePerson Person { get; private set; }
         public Company Company { get; private set; }
 
+        //Intializes a buyer of the Company class
         public Seller(Company company)
         {
             if (company != null)
@@ -19,6 +21,7 @@ namespace OOPEksamensOpgave
             }
         }
 
+        //Intializes a buyer of the PrivatePerson class
         public Seller(PrivatePerson person)
         {
             if (person != null)
@@ -27,39 +30,20 @@ namespace OOPEksamensOpgave
             }
         }
 
-        public void SubscribeToEvent(Auction auction)
-        {
-            if (Person != null)
-            {
-                Person.SubscribeToEvent2(auction);
-            }
-
-            else
-            {
-                Company.SubscribeToEvent2(auction);
-            }
-        }
-
-        public void RemoveFromEvent(Auction auction)
-        {
-            if (Person != null)
-            {
-                Person.RemoveFromEvent2(auction);
-            }
-
-            else
-            {
-                Company.RemoveFromEvent2(auction);
-            }
-        }
-
+        //Prints a notification that an interesting bid has been placed
         public void ReceivedNotification()
         {
-            Console.WriteLine("Company with ZipCode: {0} has received an interesting offer", Company.ZipCode );
+            if(Person != null)
+            {
+                Console.WriteLine("Person with zipcode {0}, has recieved an interessting offer.", Person.ZipCode);
+            }
+            else
+            {
+                Console.WriteLine("Company with ZipCode: {0} has received an interesting offer", Company.ZipCode);
+            }
         }
 
-       
-
+        //Helps identify the seller as a private person or a company based on either CVR or CPR
         public string ID 
         { 
             get
@@ -74,6 +58,23 @@ namespace OOPEksamensOpgave
                 }
             }
         }
+
+        //Method that returns a zip code after determining the class (Priavet person or company)
+        public int ZipCode
+        {
+            get 
+            {
+                if (Person != null)
+                {
+                    return Person.ZipCode;
+                }
+                else
+                {
+                    return Company.ZipCode;
+                }
+            }
+        }
+        
 
     }
 }

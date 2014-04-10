@@ -21,21 +21,31 @@ namespace OOPEksamensOpgave
         private string _fuel;
         private string _energyClass;
 
-        protected Vehicle(string name, DateTime year, bool towHitch, double km, string licenseNumber, double retailPrice, string driversLicenseType,
-                          double engineSize, string fuel, double kilometersPerLiter, int numSeats, bool hasBathroom)
+
+        //The first constructor which only takes the name as input
+        protected Vehicle(string name) 
         {
             this.Name = name;
-            this.Km = km;
-            this.LicenseNumber = licenseNumber;
-            this.Year = year;
-            this.RetailPrice = retailPrice;
+            this.KilometersPerLiter = RandomGenerator.r.Next(8, 31);
+            this.Km = RandomGenerator.r.Next(0, 576964);
+            this.LicenseNumber = "XX12345";
+            this.RetailPrice = RandomGenerator.r.Next(15000, 354875);
+            this.TowHitch = RandomGenerator.r.Next(0, 2) == 0 ? true : false;
+            this.Year = new DateTime(RandomGenerator.r.Next(1870, 2015), RandomGenerator.r.Next(1, 13), RandomGenerator.r.Next(1, 28));
+        }
+
+        //The second constructor which only takes the name and date of creation as input
+        protected Vehicle(string name, DateTime date)
+            : this(name)
+        {
+            this.Year = date;
+        }
+
+        //The third constructor which takes the name, the date of creation and whether the vehicle has a towhitch as input
+        protected Vehicle(string name, DateTime date, bool towHitch)
+            : this(name, date)
+        {
             this.TowHitch = towHitch;
-            this.DriversLicenseType = driversLicenseType;
-            this.EngineSize = engineSize;
-            this.Fuel = fuel;
-            this.KilometersPerLiter = kilometersPerLiter;
-            this.NumSeats = numSeats;
-            this.HasBathroom = hasBathroom;
         }
 
         //Number of seats in the vehicle
@@ -142,7 +152,7 @@ namespace OOPEksamensOpgave
             }
         }
 
-        //SKRIV KOMMENTAR
+        //Assigns the type of drivers license, if the value isn't null
         public virtual string DriversLicenseType
         {
             get { return _driversLicenseType; }
@@ -171,17 +181,17 @@ namespace OOPEksamensOpgave
             get { return _engineSize; }
             set 
             {
-                if (this is PassengerCar && 0.7 < value && value < 10.0)
+                if (this is PassengerCar && 0.7 <= value && value <= 10.0)
                 {
                     _engineSize = value;
                 }
 
-                else if ((this is Truck || this is Bus) && 4.2 < value && value < 15)
+                else if ((this is Truck || this is Bus) && 4.2 <= value && value <= 15)
                 {
                     _engineSize = value;
                 }
 
-                else if (this is AutoCamper && 2.4 < value && value < 6.2)
+                else if (this is AutoCamper && 2.4 <= value && value <= 6.2)
                 {
                     _engineSize = value;
                 }
@@ -350,5 +360,9 @@ namespace OOPEksamensOpgave
             }
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0} was made in {1}.", this.Name, Year.Year);
+        } 
     }
 }

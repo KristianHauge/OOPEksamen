@@ -16,11 +16,58 @@ namespace OOPEksamensOpgave
             DateTime birt = new DateTime(1990, 01, 02);
 
             PrivatePerson Kristian = new PrivatePerson(birt, 150000.0M);
+            PrivatePerson BrokeassMalte = new PrivatePerson(birt, 15000.0M);
+            PrivatePerson Martin = new PrivatePerson(birt, 150000.0M);
+
+            AuctionHouse AH = new AuctionHouse();
 
             Company cmp = new Company(1.0M, 1.0M);
+            Random r = new Random();
 
-            Vehicle meningsfuldbil = new Truck("Blah", new DateTime(2012, 12, 04), true, 10.0, "XX12345", 20.0, "C", 10.0, "Diesel", 17.0, 2, 5.0, 20, 3.0, 100);
+            Buyer buyMalte = new Buyer(BrokeassMalte);
 
+            Seller sellKristian = new Seller(Kristian);
+            Seller sellMartin = new Seller(Martin);
+
+            int MartinsAuktionsNr = 0;
+            int KristiansAuktionsNr = 0;            
+
+            Vehicle MartinsBil = new PrivatePassengerCar("Lambo");
+            Vehicle KristiansBil = new PrivatePassengerCar("Multipla");
+
+            MartinsAuktionsNr = AH.PutUpForSale(MartinsBil, sellMartin, 10000.0M);
+            KristiansAuktionsNr = AH.PutUpForSale(KristiansBil, sellKristian, 10000.0M);
+
+            Console.WriteLine(AH.OfferRecived(buyMalte, KristiansAuktionsNr, 15000.0M));
+
+            Console.WriteLine(AH.OfferRecived(buyMalte, MartinsAuktionsNr, 15000.0M));
+
+            Console.WriteLine(buyMalte.Balance);
+
+            Console.WriteLine(AH.AcceptOffer(sellMartin, MartinsAuktionsNr));
+
+            Console.WriteLine(buyMalte.Balance);
+
+            Console.WriteLine(AH.AcceptOffer(sellKristian, KristiansAuktionsNr));
+
+            Console.WriteLine(buyMalte.Balance);
+
+
+            //for(int i = 0; i < 20; i++){
+            //    Console.WriteLine(r.Next(0,2));
+            //}
+
+
+
+
+
+            //Console.WriteLine("Start the madness");
+
+            //foreach (Vehicle item in billiste)
+            //{
+            //    Console.WriteLine(item.Name);
+            //}
+            /*
             Seller sell = new Seller(cmp);
 
             AuctionHouse ah = new AuctionHouse();
@@ -29,6 +76,14 @@ namespace OOPEksamensOpgave
 
             Buyer buyer = new Buyer(Kristian);
 
+            Flugga = ah.SearchByName("Blah");
+
+            foreach (Vehicle flop in Flugga)
+            {
+                Console.WriteLine(flop.Name);
+            }
+
+            
             bool receiveYes = ah.OfferRecived(buyer, aucN, 0.1M);
 
             foreach (Auction john in ah.AuctionList)
@@ -53,7 +108,9 @@ namespace OOPEksamensOpgave
             {
                 Console.WriteLine(john.Name);
             }
+            */
 
+            Console.WriteLine("DONE");
             Console.ReadLine();
         }
     }

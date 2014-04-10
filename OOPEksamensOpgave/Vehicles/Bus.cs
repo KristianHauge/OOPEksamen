@@ -8,40 +8,40 @@ namespace OOPEksamensOpgave
 {
     class Bus : Vehicle
     {
+        //The first constructor which only takes the name as input
+        public Bus(string name)
+            : base(name)
+        {
+            InitializeDefault();
+        }
 
         // Constructor for truck, sets driver's license to C
         // This ensures that we call property DriversLicenseType
         public Bus(string name, DateTime year)
-            : base(name, year, false, 0.0, "XX12345", 0.0, "D", 0.0, "Diesel", 0.0, 4, false)
+            : base(name, year)
         {
-            this.Length = 0.0;
-            this.Height = 0.0;
-            this.Weight = 0;
-            this.NumSleepingPlaces = 0;
+            InitializeDefault();
         }
 
         // Constructor which calls base with less default values
         public Bus(string name, DateTime year, bool towHitch)
-            : base(name, year, towHitch, 0.0, "XX12345", 0.0, "D", 0.0, "Diesel", 0.0, 4, false)
+            : base(name, year, towHitch)
         {
-            this.DriversLicenseType = "D";
-            this.Length = 0.0;
-            this.Height = 0.0;
-            this.Weight = 0;
-            this.NumSleepingPlaces = 0;
+            InitializeDefault();
         }
 
-        // Constructor which calls base with specified values except for bathroom
-        public Bus(string name, DateTime year, bool towHitch, double km, string licenseNumber, double retailPrice, string driversLicenseType,
-                     double engineSize, string fuel, double kilometersPerLiter, int numSeats, double length, int weight, double height, 
-                     int numSleepingPlaces, bool hasBathroom)
-            : base(name, year, towHitch, km, licenseNumber, retailPrice, "D", engineSize, fuel, kilometersPerLiter, numSeats, hasBathroom)
+        //The method used to generate random default values
+        private void InitializeDefault()
         {
-            this.DriversLicenseType = driversLicenseType;
-            this.Length = length;
-            this.Height = height;
-            this.Weight = weight;
-            this.NumSleepingPlaces = numSleepingPlaces;
+            this.DriversLicenseType = "D";
+            base.EngineSize = RandomGenerator.r.Next(5, 16);
+            base.Fuel = RandomGenerator.r.Next(0, 2) == 0 ? "Diesel" : "Benzin";
+            base.HasBathroom = RandomGenerator.r.Next(0, 2) == 0 ? true : false;
+            base.NumSeats = RandomGenerator.r.Next(20, 100);
+            this.Weight = RandomGenerator.r.Next(1, 32);
+            this.Length = RandomGenerator.r.Next(5, 15);
+            this.Height = RandomGenerator.r.Next(2, 5);
+            this.NumSleepingPlaces = RandomGenerator.r.Next(1, 10);
         }
 
         //Number of sleeping places in the bus
@@ -72,6 +72,11 @@ namespace OOPEksamensOpgave
                 }
             }
         }
-        
+
+        public override string ToString()
+        {
+            return string.Format(base.ToString() + " It has {0} number of seats and {1} places to sleep.",
+                NumSeats, NumSleepingPlaces);
+        }
     }
 }
