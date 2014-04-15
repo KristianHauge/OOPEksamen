@@ -11,22 +11,22 @@ namespace OOPEksamensOpgave
         private string _heatingSystem;
         
         //The first constructor which only takes the name as input
-        public AutoCamper(string name)
-            : base(name)
+        public AutoCamper(string name, string licenseNumber)
+            : base(name, licenseNumber)
         {
             InitializeDefault();
         }
 
         //The second constructor which only takes the name and date of creation as input
-        public AutoCamper(string name, DateTime year)
-            : base(name, year) 
+        public AutoCamper(string name, string licenseNumber, DateTime year)
+            : base(name, licenseNumber, year) 
         {
             InitializeDefault();
         }
 
         //The third constructor which takes the name, the date of creation and whether the auto camper has a towhitch as input
-        public AutoCamper(string name, DateTime year, bool towHitch)
-            : base(name, year, towHitch)
+        public AutoCamper(string name, string licenseNumber, DateTime year, bool towHitch)
+            : base(name, licenseNumber, year, towHitch)
         {
             InitializeDefault();
         }
@@ -82,7 +82,7 @@ namespace OOPEksamensOpgave
         protected override string CalculateEnergyClass(int a, int b, int c, double kml)
         {
             double tmpkml;
-            if (_heatingSystem == "Gas")
+            if (_heatingSystem == "Oil")
             {
                 tmpkml = this.KilometersPerLiter * 0.7;
             }
@@ -99,8 +99,8 @@ namespace OOPEksamensOpgave
 
         public override string ToString()
         {
-            return string.Format(base.ToString() + " It has {0} number of seats, {1} places to sleep", 
-                NumSeats, NumSleepingPlaces);
+            return string.Format("This is properties of a autocamper:\n" + base.ToString() + "\nToilet?: {0}\nNumber of sleeping places: {1}\nNumber of seats: {2}"
+                + "\nHeating system: {3}", this.HasBathroom, this.NumSleepingPlaces, this.NumSeats, this.HeatingSystem);
         }
     }
 }

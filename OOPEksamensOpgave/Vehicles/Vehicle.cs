@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOPEksamensOpgave
 {
-    public abstract class Vehicle
+    public abstract class Vehicle : IEquatable<Vehicle>
     {
 
         private int _numSeats;
@@ -23,27 +23,27 @@ namespace OOPEksamensOpgave
 
 
         //The first constructor which only takes the name as input
-        protected Vehicle(string name) 
+        protected Vehicle(string name, string licenseNumber) 
         {
             this.Name = name;
             this.KilometersPerLiter = RandomGenerator.r.Next(8, 31);
             this.Km = RandomGenerator.r.Next(0, 576964);
-            this.LicenseNumber = "XX12345";
+            this.LicenseNumber = licenseNumber;
             this.RetailPrice = RandomGenerator.r.Next(15000, 354875);
             this.TowHitch = RandomGenerator.r.Next(0, 2) == 0 ? true : false;
             this.Year = new DateTime(RandomGenerator.r.Next(1870, 2015), RandomGenerator.r.Next(1, 13), RandomGenerator.r.Next(1, 28));
         }
 
         //The second constructor which only takes the name and date of creation as input
-        protected Vehicle(string name, DateTime date)
-            : this(name)
+        protected Vehicle(string name, string licenseNumber, DateTime date)
+            : this(name, licenseNumber)
         {
             this.Year = date;
         }
 
         //The third constructor which takes the name, the date of creation and whether the vehicle has a towhitch as input
-        protected Vehicle(string name, DateTime date, bool towHitch)
-            : this(name, date)
+        protected Vehicle(string name, string licenseNumber, DateTime date, bool towHitch)
+            : this(name, licenseNumber, date)
         {
             this.TowHitch = towHitch;
         }
@@ -78,7 +78,7 @@ namespace OOPEksamensOpgave
         public string Name
         {
             get { return _name; }
-            set
+            private set
             {
                 if (value == null)
                 {
@@ -95,7 +95,7 @@ namespace OOPEksamensOpgave
         public double Km
         {
             get { return _km; }
-            set
+            private set
             {
                 if (value < 0.0)
                 {
@@ -115,7 +115,7 @@ namespace OOPEksamensOpgave
             get {
                 return "**" + _licenseNumber.Substring(2, 3) +"***";
             }
-            set {
+            private set {
                 if (value != null)
                 {
                     if (isValidLicenseNumber(value))
@@ -360,9 +360,84 @@ namespace OOPEksamensOpgave
             }
         }
 
+        // Hashcode based on LicenseNumber and Year
+        public override int GetHashCode()
+        {
+            return _licenseNumber.GetHashCode() ^ Year.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            if (this.GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return Equals((Vehicle)obj);
+        }
+
+        // Implemented method from IEquatable,
+        // if the hashcodes match then equality is based upon the vehicle's name, km and year
+        public bool Equals(Vehicle obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            
+            if (ReferenceEquals(this, obj))
+            { 
+                return true; 
+            }
+            
+            if (GetHashCode() != obj.GetHashCode())
+            { 
+                return false;
+            }
+            
+            if (!base.Equals(obj))
+            {
+                return false;
+            }
+            
+            bool carName = (Name == null && obj.Name == null) ||
+            (Name.Equals(obj.Name));
+            
+            bool carKm = (Km == default(double) && obj.Km == default(double)) ||
+            (Km.Equals(obj.Km));
+
+            return
+            carName && carKm && Year.Equals(obj.Year);
+        }
+
+        // If Equal is true this is true
+        public static bool operator == (Vehicle vehicle1, Vehicle vehicle2)
+        {
+            if (ReferenceEquals(vehicle1, null))
+            {
+                return ReferenceEquals(vehicle2, null);
+            }
+            return (vehicle1.Equals(vehicle2));
+        }
+
+        // Negates results from == override
+        public static bool operator != (Vehicle vehicle1, Vehicle vehicle2)
+        {
+            return !(vehicle1 == vehicle2);
+        }
+
+        // Overrided to output vehicle specific information
         public override string ToString()
         {
-            return string.Format("{0} was made in {1}.", this.Name, Year.Year);
+            return string.Format("Name: {0} \nKm driven: {1}\nMade: {2}\nLicense number: {3}\nRetail price: {4}\nTow hitch? {5}\nDriverslicense type: {6}" +
+                "\nEngine size: {7} L\nKilometers per liter: {8}\nFuel: {9}\nEnergy class: {10}", this.Name, this.Km, this.Year.Year, 
+                this.LicenseNumber, this.RetailPrice, this.TowHitch, this.DriversLicenseType, this.EngineSize, this.KilometersPerLiter, this.Fuel, 
+                this.EnergyClass);
         } 
     }
 }

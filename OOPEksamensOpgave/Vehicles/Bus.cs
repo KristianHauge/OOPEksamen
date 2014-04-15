@@ -9,23 +9,23 @@ namespace OOPEksamensOpgave
     class Bus : Vehicle
     {
         //The first constructor which only takes the name as input
-        public Bus(string name)
-            : base(name)
+        public Bus(string name, string licenseNumber)
+            : base(name, licenseNumber)
         {
             InitializeDefault();
         }
 
         // Constructor for truck, sets driver's license to C
         // This ensures that we call property DriversLicenseType
-        public Bus(string name, DateTime year)
-            : base(name, year)
+        public Bus(string name, string licenseNumber, DateTime year)
+            : base(name, licenseNumber, year)
         {
             InitializeDefault();
         }
 
         // Constructor which calls base with less default values
-        public Bus(string name, DateTime year, bool towHitch)
-            : base(name, year, towHitch)
+        public Bus(string name, string licenseNumber, DateTime year, bool towHitch)
+            : base(name, licenseNumber, year, towHitch)
         {
             InitializeDefault();
         }
@@ -75,8 +75,9 @@ namespace OOPEksamensOpgave
 
         public override string ToString()
         {
-            return string.Format(base.ToString() + " It has {0} number of seats and {1} places to sleep.",
-                NumSeats, NumSleepingPlaces);
+            return string.Format("This is properties of a bus:\n" + base.ToString() + "\nToilet?: {0}\nHeight: {1} m\nLength: {2} m"
+                + "\nWeight: {3} ton\nNumber of sleeping places: {4}\nNumber of seats: {5}", this.HasBathroom, this.Height, this.Length, 
+                this.Weight, this.NumSleepingPlaces, this.NumSeats);
         }
     }
 }

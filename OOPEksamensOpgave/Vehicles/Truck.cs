@@ -9,8 +9,8 @@ namespace OOPEksamensOpgave
     class Truck : Vehicle
     {
         //The first constructor which only takes the name as input
-        public Truck(string name)
-            : base(name)
+        public Truck(string name, string licenseNumber)
+            : base(name, licenseNumber)
         {
             InitializeDefault();
         }
@@ -18,15 +18,15 @@ namespace OOPEksamensOpgave
         // Constructor for truck, sets driver's license to C
         // This ensures that we call property DriversLicenseType
         //Constructor which calls base with some default values
-        public Truck(string name, DateTime year)
-            : base(name, year)
+        public Truck(string name, string licenseNumber, DateTime year)
+            : base(name, licenseNumber, year)
         {
             InitializeDefault();
         }
 
         //The third constructor which takes the name, the date of creation and whether the auto camper has a towhitch as input
-        public Truck(string name, DateTime year, bool towHitch)
-            : base(name, year, towHitch)
+        public Truck(string name, string licenseNumber, DateTime year, bool towHitch)
+            : base(name, licenseNumber, year, towHitch)
         {
             InitializeDefault();
         }
@@ -75,8 +75,8 @@ namespace OOPEksamensOpgave
 
         public override string ToString()
         {
-            return string.Format(base.ToString() + " It has {0} number of seats and a weight of {1} ton.",
-                NumSeats, Weight);
+            return string.Format("This is properties of a truck:\n" + base.ToString() + "\nLoad capacity: {0}\nHeight: {1} m\nLength: {2} m"
+                + "\nWeight: {3} ton", this.LoadCapacity, this.Height, this.Length, this.Weight);
         }
     }
 }

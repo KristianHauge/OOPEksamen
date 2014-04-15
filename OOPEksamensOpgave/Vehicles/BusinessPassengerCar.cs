@@ -11,22 +11,22 @@ namespace OOPEksamensOpgave
         private int _loadCapacity;
 
         //The first constructor which only takes the name as input
-        public BusinessPassengerCar(string name)
-            : base(name)
+        public BusinessPassengerCar(string name, string licenseNumber)
+            : base(name, licenseNumber)
         {
             InitializeDefault();
         }
 
         //Constructor which calls base with some default values
-        public BusinessPassengerCar(string name, DateTime year)
-            : base(name, year)
+        public BusinessPassengerCar(string name, string licenseNumber, DateTime year)
+            : base(name, licenseNumber, year)
         {
             InitializeDefault();
         }
 
         // Constructor which calls base with less default values
-        public BusinessPassengerCar(string name, DateTime year, bool towHitch)
-            : base(name, year, towHitch)
+        public BusinessPassengerCar(string name, string licenseNumber, DateTime year, bool towHitch)
+            : base(name, licenseNumber, year, towHitch)
         {
             InitializeDefault();
         }
@@ -61,7 +61,8 @@ namespace OOPEksamensOpgave
 
         public override string ToString()
         {
-            return string.Format(base.ToString() + "This is a business car with {0} kg load capacity", LoadCapacity);
+            return string.Format("This is properties of a business passenger car:\n" + base.ToString() + "\nSafety bar? {0}\nLoad capacity: {1} kg",
+                this.SafetyBar, this.LoadCapacity);
         }
     }
 }

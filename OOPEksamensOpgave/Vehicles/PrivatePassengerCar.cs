@@ -9,22 +9,22 @@ namespace OOPEksamensOpgave
     public class PrivatePassengerCar : PassengerCar
     {
         //The first constructor which only takes the name as input
-        public PrivatePassengerCar(string name)
-            : base(name)
+        public PrivatePassengerCar(string name, string licenseNumber)
+            : base(name, licenseNumber)
         {
             InitializeDefault();
         }
 
         //Constructor which calls base with some default values
-        public PrivatePassengerCar(string name, DateTime year)
-            : base(name, year)
+        public PrivatePassengerCar(string name, string licenseNumber, DateTime year)
+            : base(name, licenseNumber, year)
         {
             InitializeDefault();
         }
 
         // Constructor which calls base with less default values
-        public PrivatePassengerCar(string name, DateTime year, bool towHitch)
-            : base(name, year, towHitch)
+        public PrivatePassengerCar(string name, string licenseNumber, DateTime year, bool towHitch)
+            : base(name, licenseNumber, year, towHitch)
         {
             InitializeDefault();
         }
@@ -44,7 +44,7 @@ namespace OOPEksamensOpgave
 
         public override string ToString()
         {
-            return base.ToString() + "This is a private car";
+            return string.Format("This is properties of a private passenger car:\n" + base.ToString() + "\nIsofix? {0}", this.IsoFixMounted);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace OOPEksamensOpgave
         private readonly string _CVR;
 
         //Constructor that takes balance, credit and adds a unique CVR string to the company
-        public Company(decimal balance, decimal credit)
+        public Company(string name, decimal balance, decimal credit)
         {
             _CVR = Id.ToString("D8");
 
@@ -26,9 +26,13 @@ namespace OOPEksamensOpgave
                 Id++;
             }
 
+            this.Name = name;
+            this.ZipCode = RandomGenerator.r.Next(0, 10000);
             Balance = balance;
             Credit = credit;
         }
+
+        public string Name { get; private set; }
 
         //Subscribes the company to the event that updates the balance
         public void SubscribeToEvent(Auction auction)

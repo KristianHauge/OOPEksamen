@@ -11,29 +11,45 @@ namespace OOPEksamensOpgave
         private static int _auctionNumber = 0;
 
         //Lists of auctions as well as sold vehicles
-        public List<Auction> AuctionList = new List<Auction>() { };
-        public List<Vehicle> SoldVehicles = new List<Vehicle>() { };
+        private List<Auction> AuctionList = new List<Auction>() { };
+        private List<Vehicle> SoldVehicles = new List<Vehicle>() { };
 
         //Method that puts an auction up for sale
         public int PutUpForSale(Vehicle vehicle, Seller salesman, decimal minPrice)
         {
-            ++_auctionNumber;
+            if (!AuctionList.Any(x => x.Vehicle.Equals(vehicle)))
+            {
+                ++_auctionNumber;
 
-            Auction au = new Auction(vehicle, salesman, _auctionNumber, minPrice, salesman.ReceivedNotification);
-            AuctionList.Add(au);
+                Auction au = new Auction(vehicle, salesman, _auctionNumber, minPrice, salesman.ReceivedNotification);
+                AuctionList.Add(au);
 
-            return _auctionNumber;
+                return _auctionNumber;
+            }
+            else
+            {
+                Console.WriteLine("The vehicle has already been put up for sale!");
+                return AuctionList.Find(x => x.Vehicle.Equals(vehicle)).AuctionNumber;
+            }
         }
 
         //Method that overloads the previous method to make a different notify method
         public int PutUpForSale(Vehicle vehicle, Seller salesman, decimal minPrice, NotifyDelegate notify)
         {
-            ++_auctionNumber;
+            if (!AuctionList.Any(x => x.Vehicle.Equals(vehicle)))
+            {
+                ++_auctionNumber;
             
-            Auction au = new Auction(vehicle, salesman, _auctionNumber, minPrice, notify);
-            AuctionList.Add(au);
+                Auction au = new Auction(vehicle, salesman, _auctionNumber, minPrice, notify);
+                AuctionList.Add(au);
             
-            return _auctionNumber;
+                return _auctionNumber;
+            }
+            else
+            {
+                Console.WriteLine("The vehicle has already been put up for sale!");
+                return AuctionList.Find(x => x.Vehicle.Equals(vehicle)).AuctionNumber;
+            }
         }
 
         //Method that returns whether the offer has been received or not
@@ -162,7 +178,7 @@ namespace OOPEksamensOpgave
         {
             IEnumerable<Vehicle> matches = AuctionList
                 .Where(x => x.Vehicle.Km < km)
-                .Where(x => x.MinPrice < minPrice)
+                .Where(x => x.MinPrice > minPrice)
                 .OrderBy(x => x.Vehicle.Km)
                 .Select(x => x.Vehicle);
 

@@ -14,7 +14,7 @@ namespace OOPEksamensOpgave
         private readonly string _CPR;
 
         //Constructor that takes the birthday of a person, as well as their balance and adds a unique CPR string
-        public PrivatePerson(DateTime birthday, decimal balance)
+        public PrivatePerson(string name, DateTime birthday, decimal balance)
         {
             _CPR = birthday.ToString("ddMMyy") + id.ToString("D4");
             if (id == 9999)
@@ -26,8 +26,12 @@ namespace OOPEksamensOpgave
                 id++;
             }
 
+            this.Name = name;
+            this.ZipCode = RandomGenerator.r.Next(0, 10000);
             Balance = balance;
         }
+
+        public string Name { get; private set; }
 
         //Subscribes the private person to the event that updates the balance
         public void SubscribeToEvent(Auction auction)

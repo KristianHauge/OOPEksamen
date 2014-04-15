@@ -8,7 +8,6 @@ namespace OOPEksamensOpgave
 {
     public class Seller
     {
-        private int _zipCode;
         public PrivatePerson Person { get; private set; }
         public Company Company { get; private set; }
 
@@ -35,11 +34,11 @@ namespace OOPEksamensOpgave
         {
             if(Person != null)
             {
-                Console.WriteLine("Person with zipcode {0}, has recieved an interessting offer.", Person.ZipCode);
+                Console.WriteLine("{0} with zipcode {1}, has recieved an interessting offer.", Person.Name, Person.ZipCode.ToString("D4"));
             }
             else
             {
-                Console.WriteLine("Company with ZipCode: {0} has received an interesting offer", Company.ZipCode);
+                Console.WriteLine("{0} with ZipCode: {1} has received an interesting offer", Company.Name, Company.ZipCode.ToString("D4"));
             }
         }
 

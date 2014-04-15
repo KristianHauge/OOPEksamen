@@ -15,22 +15,22 @@ namespace OOPEksamensOpgave
         private double _trunkWidth;
 
         //The first constructor which only takes the name as input
-        public PassengerCar(string name)
-            : base(name)
+        public PassengerCar(string name, string licenseNumber)
+            : base(name, licenseNumber)
         {
             InitializeDefault();
         }
 
         //Constructor which calls base with some default values
-        public PassengerCar(string name, DateTime year)
-            : base(name, year)
+        public PassengerCar(string name, string licenseNumber, DateTime year)
+            : base(name, licenseNumber, year)
         {
             InitializeDefault();
         }
 
         // Constructor which calls base with less default values
-        public PassengerCar(string name, DateTime year, bool towHitch)
-            : base(name, year, towHitch)
+        public PassengerCar(string name, string licenseNumber, DateTime year, bool towHitch)
+            : base(name, licenseNumber, year, towHitch)
         {
             InitializeDefault();
         }
@@ -64,7 +64,8 @@ namespace OOPEksamensOpgave
 
         public override string ToString()
         {
-            return string.Format(base.ToString() + " It has {0} number of seats and a retail price of {1}. ", NumSeats, RetailPrice);
+            return string.Format(base.ToString() + "\nNumber of seats: {0}\nTrunk dimensions: {1} x {2} x {3} m^3",
+                this.NumSeats, this._trunkLength, this._trunkWidth, this._trunkHeight);
         }
 
     }
